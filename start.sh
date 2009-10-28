@@ -1,0 +1,1 @@
+nohup php bot.php > log &

@@ -223,7 +223,7 @@ while(1) {
 									break;
 								case '!status':
 									$status = 'STATUS_'.trim(strtoupper($command[1]));
-									$status2 = 'STATUS_DCCONT'
+									$status2 = 'STATUS_DCCONT';
 									if (count($command) > 2) {
 										$status2 = 'STATUS_'.trim(strtoupper($command[2]));
 									}

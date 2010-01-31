@@ -3,7 +3,7 @@ error_reporting (E_ALL);
 
 #define('UIN1', '3180142');
 #define('PASSWORD1', 'gbdjktd');
-define('UIN', '214176492');
+define('BOTUIN', '214176492');
 define('PASSWORD', '3682');
 //define('UIN1', '150727255');
 //define('PASSWORD1', '36823682');
@@ -78,7 +78,7 @@ while(1) {
 //
 //	sleep(10);
 
-	if($icq->connect(UIN, PASSWORD))
+	if($icq->connect(BOTUIN, PASSWORD))
 	{
 		$icq->sendMessage(ADMINUIN, "Service PHP BOT started...");
 		$uptime = $status_time = $xstatus_time = time();
@@ -173,7 +173,7 @@ while(1) {
 						}
 						break;
 					case '!groups':
-						$icq->sendMessage($msg['from'], print_r($icq->getContactListGroups(), true));
+						var_dump($icq->getContactListGroups());
 						break;
 					case '!removeme':
 						$list = $icq->getContactList();
@@ -253,7 +253,7 @@ while(1) {
 									break;
 								case '!to':
 									$to = $command[1];
-									if ($to != UIN)
+									if ($to != BOTUIN)
 									{
 										unset($command[0]);
 										unset($command[1]);
@@ -261,7 +261,7 @@ while(1) {
 										$id = $icq->sendMessage($to, ($msg['from']==ADMINUIN?'':"Message from: ".$msg['from']."\r\n").$command);
 										if ($id !== false)
 										{
-											$message_response[(String)$id] = array('from' => $msg['from'], 'to' => $to);
+											$message_response[$id] = array('from' => $msg['from'], 'to' => $to);
 											$icq->sendMessage($msg['from'], "Accepted for delivery. Message id: ".$id);
 										}
 										else
@@ -302,6 +302,13 @@ while(1) {
 									}
 									$icq->sendMessage($msg['from'], $msg['from'].' added to bot contact list');
 									break;
+								case '!addgroup':
+									$name = $command[1];
+									$parent = '';
+									if (count($command) > 2) {
+										$parent = $command[2];
+									}
+									$icq->addContactGroup($name, $parent);
 								case '!ignore':
 									if($msg['from'] == ADMINUIN || $msg['from'] == trim($command[1])) {
 										$ignore_list[] = trim($command[1]);
@@ -342,7 +349,7 @@ while(1) {
 						break;
 				}
 			}
-			elseif (isset($msg['id']) && isset($message_response[(String)$msg['id']]))
+			elseif (isset($msg['id']) && isset($message_response[$msg['id']]))
 			{
 				if(isset($msg['type']))
 				{
@@ -358,7 +365,7 @@ while(1) {
 							$icq->sendMessage($message_response[$msg['id']], $message);
 							break;
 						case 'accepted':
-							$contact = $message_response[(String)$msg['id']];
+							$contact = $message_response[$msg['id']];
 							$message = 'Message to '.$contact['to'].' accepted. Id: '.$msg['id'];
 							$icq->sendMessage($contact['from'], $message);
 							break;
@@ -367,12 +374,13 @@ while(1) {
 							break;
 					}
 				}
-				unset($message_response[(String)$msg['id']]);
+				unset($message_response[$msg['id']]);
 			}
 			elseif (isset($msg['type']))
 			{
 				switch ($msg['type']) {
 					case 'contactlist':
+						$icq->sendMessage(ADMINUIN, 'contact');
 //						$icq->sendMessage(ADMINUIN, getContactList($icq->getContactList()));
 						break;
 					case 'error':

@@ -2223,7 +2223,7 @@ class WebIcqPro_Socet extends WebIcqPro_FLAP
  */
 class WebIcqPro extends WebIcqPro_Socet {
 
-	private $uin;
+	private $botuin;
 
 	/**
 	 * Constructor for WebIcqPro class
@@ -2247,7 +2247,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 	 */
 	public function connect($uin, $pass)
 	{
-		$this->uin = str_replace('-', '', $uin);
+		$this->botuin = str_replace('-', '', $uin);
 		if ($this->socet)
 		{
 			$this->error = 'Error: Connection already opened';
@@ -2261,11 +2261,11 @@ class WebIcqPro extends WebIcqPro_Socet {
 			{
 				$this->socetWrite($this->helloFlap());
 				$this->channel = 0x02;
-				$this->writeFlap('ClientMd5Request', array('uin' => $this->uin));
+				$this->writeFlap('ClientMd5Request', array('uin' => $this->botuin));
 				$authkey = $this->readFlap('ServerMd5Response');
 				if ($authkey)
 				{
-					$this->writeFlap('ClientMd5Login', array('uin' => $this->uin, 'password' => $pass, 'authkey' => $authkey));
+					$this->writeFlap('ClientMd5Login', array('uin' => $this->botuin, 'password' => $pass, 'authkey' => $authkey));
 					$reconect = $this->readFlap('ServerMd5LoginReply');
 					return $this->reconect($reconect);
 				}
@@ -2440,7 +2440,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 	 */
 	public function activateOfflineMessages()
 	{
-		return $this->writeFlap('ClientMetaData', array('uin' => $this->uin, 'type' => 'offline'));
+		return $this->writeFlap('ClientMetaData', array('uin' => $this->botuin, 'type' => 'offline'));
 	}
 
 	/**
@@ -2454,7 +2454,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 	public function getShortInfo($uin)
 	{
 		$uin = str_replace('-', '', $uin);
-		return $this->writeFlap('ClientMetaData', array('uin' => $this->uin, 'uinsearch' => $uin, 'type' => 'shortinfo'));
+		return $this->writeFlap('ClientMetaData', array('uin' => $this->botuin, 'uinsearch' => $uin, 'type' => 'shortinfo'));
 	}
 
 	/**

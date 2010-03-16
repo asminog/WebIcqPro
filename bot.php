@@ -82,7 +82,7 @@ while(1) {
 	{
 		$icq->sendMessage(ADMINUIN, "Service PHP BOT started...");
 		$uptime = $status_time = $xstatus_time = time();
-		$icq->setStatus(STARTSTATUS, 'STATUS_WEBAWARE', 'Talk to me... I\'m WebIcqBot :)');
+		$icq->setStatus(STARTSTATUS, 'STATUS_DCAUTH', 'Talk to me... I\'m WebIcqBot :)');
 		$icq->setXStatus(STARTXSTATUS);
 		$xstatus = STARTXSTATUS;
 		$status = STARTSTATUS;
@@ -94,6 +94,7 @@ while(1) {
 			$icq->error = '';
 		}
 		sleep(1200);
+		continue;
 	}
 
 	$msg_old = array();
@@ -125,7 +126,7 @@ while(1) {
 			$msg_old = $msg;
 			if (isset($msg['type']) && $msg['type'] == 'message' && isset($msg['from']) && isset($msg['message']) && $msg['message'] != '' && !in_array($msg['from'], $ignore_list))// && preg_match('~^[a-z0-9\-!�-� \t]+$~im', $msg['from']))
 			{
-				$icq->sendMessage(ADMINUIN, $msg['from'].'>'.$msg['message']);
+				$icq->sendMessage(ADMINUIN, $msg['from'].'>'.trim($msg['message']));
 				switch (strtolower(trim($msg['message'])))
 				{
 					case '!about':
@@ -309,6 +310,7 @@ while(1) {
 										$parent = $command[2];
 									}
 									$icq->addContactGroup($name, $parent);
+									break;
 								case '!ignore':
 									if($msg['from'] == ADMINUIN || $msg['from'] == trim($command[1])) {
 										$ignore_list[] = trim($command[1]);
@@ -387,10 +389,11 @@ while(1) {
 						$icq->sendMessage(ADMINUIN, 'Error: '.$msg['code']." ".(isset($msg['error'])?$msg['error']:''));
 						break;
 					case 'authrequest':
-						$icq->setAuthorization($msg['from'], 'Just for fun!');
+						$icq->setAuthorization($msg['from'], true, 'Just for fun!');
 						break;
 					case 'authresponse':
-						$icq->sendMessage(ADMINUIN, 'Authorization response: '.$msg['from'].' - '.$msg['granted'].' - '.$msg['reason']);
+						var_dump($msg);
+						$icq->sendMessage(ADMINUIN, 'Authorization response: '.$msg['from'].' - '.$msg['granted'].' - '.trim($msg['message']));
 						break;
 					case 'accepted':
 							if (!$msg['uin'] == ADMINUIN)

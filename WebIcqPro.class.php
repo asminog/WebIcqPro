@@ -28,11 +28,12 @@ class WebIcqPro_LV {
 		return pack($length, strlen($value)).$value;
 	}
 
-	protected function unpackLV(&$data, $length = 2)
+	protected function unpackLV(&$data, $l = 'n')
 	{
+		$length = $l == 'c' ? 1 : 2;
 		if (strlen($data)>=$length)
 		{
-			$result = unpack('nsize', $data);
+			$result = unpack($l.'size', $data);
 			$result['data'] = substr($data, $length , $result['size']);
 			$data = substr($data, $result['size']+$length);
 			return $result['data'];
@@ -1483,7 +1484,7 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 		}
 		if ($flag == 0 || $flag == 32768) {
 			$this->writeFlap('ClientSSIActivate');
-			return $this->createResponse("contactlist");
+			return $this->createResponse("contactlist", array('groups'=> $this->contact_list_groups, 'users'=>$this->contact_list));
 		}
 		return true;
 	}
@@ -1721,7 +1722,8 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 	protected function ServerSSIAuthRequest($data)
 	{
 		$response = $this->createResponse('authrequest');
-		$response['from'] = $this->unpackLV($data, 1);
+		$data = substr($data, 8);
+		$response['from'] = $this->unpackLV($data, 'c');
 		$response['reason'] = $this->unpackLV($data);
 		return $response;
 	}
@@ -1738,11 +1740,11 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 	protected function ServerSSIAuthResponse($data)
 	{
 		$response = $this->createResponse('authresponse');
-		$response['from'] = $this->unpackLV($data, 1);
+		$response['from'] = $this->unpackLV($data, 'c');
 		$granted = unpack('c', substr($data, 0, 1));
 		$response['granted'] = $granted[1];
 		$data = substr($data, 1);
-		$response['reason'] = $this->unpackLV($data);
+		$response['message'] = $this->unpackLV($data);
 		return $response;
 	}
 
@@ -1751,7 +1753,7 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 		$response = $this->createResponse('youadded');
 		$this->unpackTLV($data);
 		$data = substr($data, 1);
-		$response['from'] = $this->unpackLV($data, 1);
+		$response['from'] = $this->unpackLV($data, 'c');
 		return $response;
 	}
 
@@ -2524,6 +2526,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 	/**
 	 * Return list of contacts
 	 *
+	 * @deprecated 1.5 - 08.02.2010
 	 * @return array
 	 */
 	public function getContactList()
@@ -2534,6 +2537,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 	/**
 	 * Return list of contacts groups
 	 *
+	 * @deprecated 1.5 - 08.02.2010
 	 * @return array
 	 */
 	public function getContactListGroups()

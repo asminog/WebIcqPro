@@ -241,9 +241,11 @@ while(1) {
 									}
 									break;
 								case '!xstatus':
+									$xstatus = $command[1];
 									unset($command[0]);
-									$xstatus = $command;
-									if (!$icq->setXStatus(trim(implode(' ', $command))))
+									unset($command[1]);
+									$statusMessage = count($command) > 0 ? trim(implode($command)) : '';
+									if (!$icq->setXStatus(trim($xstatus), $statusMessage))
 									{
 										$icq->sendMessage($msg['from'], $icq->error);
 									}

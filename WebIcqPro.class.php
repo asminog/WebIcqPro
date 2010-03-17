@@ -847,13 +847,14 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 	protected function ClientStatus($args)
 	{
 		extract($args);
+		$snac = $this->__header(0x01, 0x1E);
 		if (isset($status) && isset($substatus)) {
-			$snac = $this->__header(0x01, 0x1E);
 			$snac .= $this->packTLV(0x06, ($this->substatuses[$substatus]<<16) + $this->statuses[$status], 'N');
 			$snac .= $this->packTLV(0x0C, pack('NNcnNNNNNNn', 0x00, 0x00, 0x06, $this->protocol_version, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00));
-			return $snac;
 		}
-		return false;
+		$message = $this->packLV($this->status_message);
+		$snac .= $this->packTLV(0x1D, pack('ncc', 0x02, 0x04, strlen($message)).$message);
+		return $snac;
 	}
 
 
@@ -2314,7 +2315,6 @@ class WebIcqPro extends WebIcqPro_Socet {
 		}
 		return false;
 	}
-
 	/**
 	 * Method activate Status Notifications
 	 *
@@ -2391,8 +2391,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 			$this->error = 'setXStatus: unknown status '.$status;
 			return false;
 		}
-		$this->writeFlap('ClientIdleTime');
-		return $this->writeFlap('ClientLocationInfo');
+		return $this->writeFlap('ClientLocationInfo') && $this->writeFlap('ClientStatus', array()) && $this->writeFlap('ClientIdleTime');
 	}
 
 	/**

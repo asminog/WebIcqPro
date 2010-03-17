@@ -850,9 +850,9 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 		$snac = $this->__header(0x01, 0x1E);
 		if (isset($status) && isset($substatus)) {
 			$snac .= $this->packTLV(0x06, ($this->substatuses[$substatus]<<16) + $this->statuses[$status], 'N');
-			$snac .= $this->packTLV(0x0C, pack('NNcnNNNNNNn', 0x00, 0x00, 0x06, $this->protocol_version, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00));
+			//$snac .= $this->packTLV(0x0C, pack('NNcnNNNNNNn', 0x00, 0x00, 0x06, $this->protocol_version, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00));
 		}
-		$message = $this->packLV($this->status_message);
+		$message = $this->packLV($this->status_message).pack('n', 0x00);
 		$snac .= $this->packTLV(0x1D, pack('ncc', 0x02, 0x04, strlen($message)).$message);
 		return $snac;
 	}

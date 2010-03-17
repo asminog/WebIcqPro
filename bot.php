@@ -158,7 +158,7 @@ while(1) {
 						$list = $icq->getContactList();
 						if($msg['from'] == ADMINUIN)
 						{
-							call_user_method_array('deleteContact', $icq, array_keys($list));
+							$icq->deleteContact(array_keys($list));
 							$icq->sendMessage(ADMINUIN, "Contact list cleared...");
 						}
 						else

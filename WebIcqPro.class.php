@@ -2587,15 +2587,16 @@ class WebIcqPro extends WebIcqPro_Socet {
 	 * @param mixed list of uins
 	 * @return boolean
 	 */
-	public function deleteContact()
+	public function deleteContact($uin)
 	{
-		$uin = array();
-		foreach (func_get_args() as $id) {
-			$uin[] = str_replace('-', '', $id);
+		$uin = is_array($uin) ? $uin : array($uin);
+		$uins = array();
+		foreach ($uin as $id) {
+			$uins[] = str_replace('-', '', $id);
 		}
 		if(count($uin) > 0) {
 			$this->writeFlap('ClientSSIEditStart');
-			$this->writeFlap('ClientSSIDelete', array('uins' => $uin));
+			$this->writeFlap('ClientSSIDelete', array('uins' => $uins));
 			$this->writeFlap('ClientSSIEditEnd');
 			return true;
 		}

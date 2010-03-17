@@ -225,6 +225,7 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 	0x17 => 'ClientFamiliesVersions',
 	0x18 => 'ServerFamiliesVersions',
 	0x1E => 'ClientStatus',
+	0x21 => 'ClientBart',
 	'version' => 0x04
 	),
 	0x02 => array( // Location services
@@ -850,10 +851,19 @@ class WebIcqPro_SNAC extends WebIcqPro_TLV {
 		$snac = $this->__header(0x01, 0x1E);
 		if (isset($status) && isset($substatus)) {
 			$snac .= $this->packTLV(0x06, ($this->substatuses[$substatus]<<16) + $this->statuses[$status], 'N');
-			//$snac .= $this->packTLV(0x0C, pack('NNcnNNNNNNn', 0x00, 0x00, 0x06, $this->protocol_version, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00));
+			$snac .= $this->packTLV(0x0C, pack('NNcnNNNNNNn', 0x00, 0x00, 0x06, $this->protocol_version, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00));
 		}
-		$message = $this->packLV($this->status_message).pack('n', 0x00);
-		$snac .= $this->packTLV(0x1D, pack('ncc', 0x01, 0x04, strlen($message)).$message);
+//		$message = $this->packLV($this->status_message).pack('n', 0x00);
+//		$snac .= $this->packTLV(0x1D, pack('ncc', 0x02, 0x04, strlen($message)).$message);
+		return $snac;
+	}
+
+	protected function ClientBart($args = array())
+	{
+		extract($args);
+		$snac = $this->__header(0x01, 0x21);
+		$message = $this->packLV($this->xstatus_message).pack('n', 0x00);
+		$snac .= $this->packTLV(0x1D, pack('ncc', 0x02, 0x04, strlen($message)).$message);
 		return $snac;
 	}
 
@@ -2381,7 +2391,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 	 */
 	public function setXStatus($status = '', $message = '')
 	{
-		$this->status_message = $message;
+		$this->xstatus_message = $message;
 		if (isset($this->x_statuses[$status]))
 		{
 			$this->capabilities['xSatus'] = $this->x_statuses[$status];
@@ -2391,7 +2401,7 @@ class WebIcqPro extends WebIcqPro_Socet {
 			$this->error = 'setXStatus: unknown status '.$status;
 			return false;
 		}
-		return $this->writeFlap('ClientLocationInfo') && $this->writeFlap('ClientStatus', array()) && $this->writeFlap('ClientIdleTime');
+		return $this->writeFlap('ClientLocationInfo') && $this->writeFlap('ClientBart') && $this->writeFlap('ClientIdleTime');
 	}
 
 	/**

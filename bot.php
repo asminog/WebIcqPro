@@ -8,7 +8,7 @@ define('PASSWORD', '3682');
 //define('UIN1', '150727255');
 //define('PASSWORD1', '36823682');
 define('ADMINUIN', '150727255');
-define('STARTXSTATUS', 'smoking');
+define('STARTXSTATUS', 'studying');
 define('STARTSTATUS', 'STATUS_FREE4CHAT');
 
 $help = "Bot commands:\r
@@ -83,7 +83,7 @@ while(1) {
 		$icq->sendMessage(ADMINUIN, "Service PHP BOT started...");
 		$uptime = $status_time = $xstatus_time = time();
 		$icq->setStatus(STARTSTATUS, 'STATUS_DCAUTH', 'Talk to me... I\'m WebIcqBot :)');
-		$icq->setXStatus(STARTXSTATUS);
+		$icq->setXStatus(STARTXSTATUS, 'Talk to me... I\'m WebIcqBot :)');
 		$xstatus = STARTXSTATUS;
 		$status = STARTSTATUS;
 	}else{

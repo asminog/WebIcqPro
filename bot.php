@@ -15,7 +15,6 @@ $help = "Bot commands:\r
 \t'!about' - print message about this bot.\r
 \t'!addme your_custom_name' - Add your uin to bot contact list.\r
 \t'!contact' - Shows bot contact list.\r
-\t'!donate' - Please donate this project.\r
 \t'!help'  - print help message.\r
 \t'!info 3180142'  - show user info.\r
 \t'!removeme' - Delete your uin ftom bot contact list.\r
@@ -32,9 +31,9 @@ $about = "PHP BOT v3.10
 Based on WebIcqPro " . WebIcqPro::VERSION . "
 (c) Sergey Akudovich
 Contact author:
-http://intrigue.ru/forum/";
-
-$donate = "Donate project:
+http://wip.asminog.com/forum/
+" .
+"Donate project:
 http://webmoney.ru
 R840601686033,
 Z110610335096,
@@ -131,9 +130,6 @@ while(1) {
 				{
 					case '!about':
 						$icq->sendMessage($msg['from'], $about);
-						break;
-					case '!donate':
-						$icq->sendMessage($msg['from'], $donate);
 						break;
 					case '!help':
 						$icq->sendMessage($msg['from'], $help);

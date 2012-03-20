@@ -1,7 +1,7 @@
 <?php
 include('rtf.class.php');
 /**
- * http://intrigue.ru/forum/ - disscus this package here.
+ * http://wip.asminog.com/ - disscus this package here.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

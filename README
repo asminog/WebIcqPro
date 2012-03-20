@@ -1,4 +1,4 @@
-WebIcqPro v1.3b
+WebIcqPro v1.5b
 
 bot.php             - script with simple bot
 start.sh            - startup shell script
@@ -37,5 +37,5 @@ c:\php\php.exe /path/to/your/bot/folder/bot.php
 
 TIPS&TRICKS:
 __________________________________________________
-Can be found on http://intrigue.ru/ (Russian only)
+Can be found on http://wip.asminog.com/ (Russian only)
 

@@ -1,12 +1,8 @@
 <?php
 error_reporting (E_ALL);
 
-#define('UIN1', '3180142');
-#define('PASSWORD1', 'gbdjktd');
 define('BOTUIN', '214176492');
-define('PASSWORD', '3682');
-//define('UIN1', '150727255');
-//define('PASSWORD1', '36823682');
+define('PASSWORD', '******');
 define('ADMINUIN', '150727255');
 define('STARTXSTATUS', 'studying');
 define('STARTSTATUS', 'STATUS_FREE4CHAT');

@@ -1,4 +1,5 @@
 WebIcqPro v1.5b
+===============
 
 bot.php             - script with simple bot
 start.sh            - startup shell script

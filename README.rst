@@ -7,9 +7,10 @@ WebIcqPro.class.php - WebIcqPro library
 
 
 HOW TO USE:
-__________________________________________________
+-----------
 
--UNIX/LINUX---------------------------------------
+UNIX/LINUX
+^^^^^^^^^^
 1. Copy files to server in your home directory.
 2. Make start.sh executable:
 
@@ -28,7 +29,8 @@ mcedit bot.php
 more log
 
 
--WINDOWS------------------------------------------
+WINDOWS
+^^^^^^^
 1. Windows for nubes!
 2. Open bot php and change config values/
 3. Open command line and type:
@@ -39,6 +41,3 @@ c:\php\php.exe /path/to/your/bot/folder/bot.php
 TIPS&TRICKS:
 __________________________________________________
 Can be found on http://wip.asminog.com/ (Russian only)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asminog/webicqpro/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-

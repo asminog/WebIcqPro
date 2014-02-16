@@ -39,5 +39,5 @@ c:\php\php.exe /path/to/your/bot/folder/bot.php
 
 
 TIPS&TRICKS:
-__________________________________________________
+------------
 Can be found on http://wip.asminog.com/ (Russian only)

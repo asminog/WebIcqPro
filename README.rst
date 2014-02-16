@@ -41,3 +41,9 @@ c:\php\php.exe /path/to/your/bot/folder/bot.php
 TIPS&TRICKS:
 ------------
 Can be found on http://wip.asminog.com/ (Russian only)
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/asminog/webicqpro/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+

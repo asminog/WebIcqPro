@@ -2,7 +2,9 @@ WebIcqPro v1.5b
 ===============
 
 bot.php             - script with simple bot
+
 start.sh            - startup shell script
+
 WebIcqPro.class.php - WebIcqPro library
 
 
@@ -32,7 +34,7 @@ more log
 WINDOWS
 ^^^^^^^
 1. Windows for nubes!
-2. Open bot php and change config values/
+2. Open bot php and change config values.
 3. Open command line and type:
 
 c:\php\php.exe /path/to/your/bot/folder/bot.php

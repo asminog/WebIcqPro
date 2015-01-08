@@ -47,9 +47,3 @@ Can be found on http://wip.asminog.com/ (Russian only)
    :alt: Bitdeli badge
    :target: https://bitdeli.com/free
 
-
-
-.. image:: https://d2weczhvl823v0.cloudfront.net/asminog/webicqpro/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
-

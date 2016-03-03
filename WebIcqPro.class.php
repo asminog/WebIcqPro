@@ -2050,7 +2050,7 @@ class WebIcqPro_Socet extends WebIcqPro_FLAP
 		parent::__construct();
 		$this->setServerUrl();
 		$this->setServerPort();
-		$this->setTimeout(6,0);
+		$this->setTimeout(30,0);
 	}
 
 	protected function socetOpen()

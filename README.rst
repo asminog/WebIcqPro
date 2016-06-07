@@ -39,4 +39,4 @@ WINDOWS
 
 c:\php\php.exe /path/to/your/bot/folder/bot.php
 
-if you are looking for hosting try FirstVDS <https://firstvds.ru/?from=15828>
+If you are looking cheap and suitable hosting for bot, I recomend `FirstVDS <https://firstvds.ru/?from=15828>`_.

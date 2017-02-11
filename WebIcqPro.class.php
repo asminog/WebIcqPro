@@ -2187,7 +2187,7 @@ class WebIcqPro_Socet extends WebIcqPro_FLAP
 				if (isset($snac['callback']))
 				{
 					$this->log("<< ".$snac['callback'].' ('.dechex($snac['type']).'x'.dechex($snac['subtype']).')', $data.$flap['data']);
-					return $this->$snac['callback']($snac['data'], $snac['flag']);
+                    return $this->{$snac['callback']}($snac['data'], $snac['flag']);
 				}
 				else
 				{
